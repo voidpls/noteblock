@@ -3,8 +3,8 @@ const { CreateEmbed } = require('../../Utility/CreateEmbed');
 
 module.exports = class VolumeCommand extends Command {
   constructor() {
-    super('Volume', {
-      aliases: ['Volume'],
+    super('volume', {
+      aliases: ['volume', 'vol'],
       description: {
         content: 'Change music volume',
       },
@@ -16,8 +16,8 @@ module.exports = class VolumeCommand extends Command {
           type: Argument.range('number', 1, 101),
           match: 'rest',
           prompt: {
-            start: 'What new volume you want to change? between 1-100',
-            retry: 'between 1-100',
+            start: 'What new volume you want to change? [1-100]',
+            retry: 'Between 1-100',
           },
         },
       ],
