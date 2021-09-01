@@ -36,6 +36,7 @@ module.exports = class PlayCommand extends Command {
           voiceChannel: msg.member.voice.channelId,
           textChannel: msg.channel.id,
           selfDeafen: true,
+          volume: 50
         });
         player.connect();
         /* eslint no-restricted-syntax: "off" */
