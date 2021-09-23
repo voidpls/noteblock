@@ -8,6 +8,7 @@ const Deezer = require('../Plugin/Deezer');
 const config = require('../config');
 const { CreateEmbed } = require('../Utility/CreateEmbed');
 const { logger } = require('../Utility/Logger');
+require('../Extenders/Node');
 
 module.exports = class NoteClient extends AkairoClient {
   constructor() {
@@ -18,6 +19,7 @@ module.exports = class NoteClient extends AkairoClient {
         Intents.FLAGS.GUILDS,
         Intents.FLAGS.GUILD_MESSAGES,
         Intents.FLAGS.GUILD_VOICE_STATES,
+        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
       ],
     });
     this.logger = logger;
@@ -55,7 +57,7 @@ module.exports = class NoteClient extends AkairoClient {
     }).on('commandFinished', (msg, command) => {
       this.logger.info(`[${msg.author.tag}] USING [${command.id.toUpperCase()}] COMMANDS`);
     }).on('cooldown', async (msg, command, remaining) => {
-      const awaitMsg = await msg.channel.send(CreateEmbed('warn', `Chill.. wait ${(remaining / 1000).toFixed(2)} second(s) to use command again`));
+      const awaitMsg = await msg.channel.send({ embeds: [CreateEmbed('warn', `Chill.. wait ${(remaining / 1000).toFixed(2)} second(s) to use command again`)] });
       setTimeout(() => awaitMsg.delete(), remaining);
       this.logger.warn(`[${msg.author.tag}] GETTING RATE LIMIT ON [${command.id.toUpperCase()}] COMMANDS`);
     });
